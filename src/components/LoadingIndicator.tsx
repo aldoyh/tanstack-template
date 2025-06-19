@@ -7,14 +7,14 @@ export const LoadingIndicator = () => (
           <div className="relative flex items-center justify-center w-full h-full rounded-lg bg-gradient-to-r from-orange-500 to-red-600">
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-orange-500 to-red-600 animate-pulse"></div>
             <span className="relative z-10 text-sm font-medium text-white">
-              AI
+              ذ.ا
             </span>
           </div>
         </div>
       </div>
       <div className="flex items-center gap-3">
         <div className="text-lg font-medium text-gray-400">
-          Thinking
+          يفكر
         </div>
         <div className="flex gap-2">
           <div
@@ -33,4 +33,4 @@ export const LoadingIndicator = () => (
       </div>
     </div>
   </div>
-); 
+);

@@ -34,7 +34,7 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
       <div className="bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-semibold text-white">Settings</h2>
+            <h2 className="text-2xl font-semibold text-white">الإعدادات</h2>
             <button
               onClick={handleClose}
               className="text-gray-400 hover:text-white focus:outline-none"
@@ -50,14 +50,14 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
             <div className="space-y-2">
               <div className="flex items-center justify-between mb-4">
                 <label className="block text-sm font-medium text-white">
-                  System Prompts
+                  النماذج النصية للنظام
                 </label>
                 <button
                   onClick={() => setIsAddingPrompt(true)}
                   className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-red-600 rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <PlusCircle className="w-4 h-4" />
-                  Add Prompt
+                  إضافة نموذج
                 </button>
               </div>
 
@@ -67,27 +67,29 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
                     type="text"
                     value={promptForm.name}
                     onChange={(e) => setPromptForm(prev => ({ ...prev, name: e.target.value }))}
-                    placeholder="Prompt name..."
+                    placeholder="اسم النموذج..."
                     className="w-full px-3 py-2 text-sm text-white bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                    dir="rtl"
                   />
                   <textarea
                     value={promptForm.content}
                     onChange={(e) => setPromptForm(prev => ({ ...prev, content: e.target.value }))}
-                    placeholder="Enter prompt content..."
+                    placeholder="أدخل محتوى النموذج..."
                     className="w-full h-32 px-3 py-2 text-sm text-white bg-gray-700 border border-gray-600 rounded-lg focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                    dir="rtl"
                   />
                   <div className="flex justify-end gap-2">
                     <button
                       onClick={() => setIsAddingPrompt(false)}
                       className="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white focus:outline-none"
                     >
-                      Cancel
+                      إلغاء
                     </button>
                     <button
                       onClick={handleAddPrompt}
                       className="px-3 py-1.5 text-sm font-medium text-white bg-gradient-to-r from-orange-500 to-red-600 rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500"
                     >
-                      Save Prompt
+                      حفظ النموذج
                     </button>
                   </div>
                 </div>
@@ -96,9 +98,9 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
               <div className="space-y-2">
                 {prompts.map((prompt) => (
                   <div key={prompt.id} className="flex items-center justify-between p-3 rounded-lg bg-gray-700/50">
-                    <div className="flex-1 min-w-0 mr-4">
-                      <h4 className="text-sm font-medium text-white truncate">{prompt.name}</h4>
-                      <p className="text-xs text-gray-400 truncate">{prompt.content}</p>
+                    <div className="flex-1 min-w-0 ml-4">
+                      <h4 className="text-sm font-medium text-white truncate text-right">{prompt.name}</h4>
+                      <p className="text-xs text-gray-400 truncate text-right">{prompt.content}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -120,8 +122,8 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-gray-400">
-                Create and manage custom system prompts. Only one prompt can be active at a time.
+              <p className="text-xs text-gray-400 text-right">
+                إنشاء وإدارة النماذج النصية المخصصة للنظام. يمكن تفعيل نموذج واحد فقط في كل مرة.
               </p>
             </div>
 
@@ -132,17 +134,17 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
               onClick={handleClose}
               className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white focus:outline-none"
             >
-              Cancel
+              إلغاء
             </button>
             <button
               onClick={handleClose}
               className="px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500"
             >
-              Close
+              إغلاق
             </button>
           </div>
         </div>
       </div>
     </div>
   )
-} 
+}

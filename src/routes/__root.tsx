@@ -20,13 +20,30 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Chat Starter',
+        title: 'تطبيق المحادثة TanStack',
+      },
+      {
+        name: 'description',
+        content: 'تطبيق محادثة ذكي باللغة العربية',
+      },
+      {
+        name: 'lang',
+        content: 'ar',
       },
     ],
     links: [
       {
         rel: 'stylesheet',
         href: appCss,
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossOrigin: 'anonymous',
       },
     ],
   }),
@@ -41,7 +58,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="ar" dir="rtl">
       <head>
         <HeadContent />
       </head>
@@ -49,6 +66,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ConvexClientProvider>
           {children}
         </ConvexClientProvider>
+        <div className="footer">
+          مترجم بواسطة: Claude Sonnet 4
+        </div>
         <Scripts />
       </body>
     </html>

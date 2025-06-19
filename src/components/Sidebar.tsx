@@ -25,14 +25,14 @@ export const Sidebar = ({
   setEditingTitle, 
   handleUpdateChatTitle 
 }: SidebarProps) => (
-  <div className="flex flex-col w-64 bg-gray-800 border-r border-gray-700">
+  <div className="flex flex-col w-64 bg-gray-800 border-l border-gray-700 sidebar-rtl">
     <div className="p-4 border-b border-gray-700">
       <button
         onClick={handleNewChat}
         className="flex items-center justify-center w-full gap-2 px-3 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500"
       >
-        <PlusCircle className="w-4 h-4" />
-        New Chat
+        <PlusCircle className="w-4 h-4 btn-icon-rtl" />
+        محادثة جديدة
       </button>
     </div>
 
@@ -70,9 +70,10 @@ export const Sidebar = ({
               }}
               className="flex-1 text-sm text-white bg-transparent focus:outline-none"
               autoFocus
+              dir="rtl"
             />
           ) : (
-            <span className="flex-1 text-sm text-gray-300 truncate">
+            <span className="flex-1 text-sm text-gray-300 truncate text-right">
               {chat.title}
             </span>
           )}
@@ -101,4 +102,4 @@ export const Sidebar = ({
       ))}
     </div>
   </div>
-); 
+);

@@ -82,7 +82,7 @@ function Home() {
 
       const reader = response.body?.getReader()
       if (!reader) {
-        throw new Error('No reader found in response')
+        throw new Error('لم يتم العثور على قارئ في الاستجابة')
       }
 
       const decoder = new TextDecoder()
@@ -107,7 +107,7 @@ function Home() {
               setPendingMessage(newMessage)
             }
           } catch (e) {
-            console.error('Error parsing streaming response:', e)
+            console.error('خطأ في تحليل الاستجابة المتدفقة:', e)
           }
         }
       }
@@ -115,16 +115,16 @@ function Home() {
       setPendingMessage(null)
       if (newMessage.content.trim()) {
         // Add AI message to Convex
-        console.log('Adding AI response to conversation:', conversationId)
+        console.log('إضافة استجابة الذكاء الاصطناعي إلى المحادثة:', conversationId)
         await addMessage(conversationId, newMessage)
       }
     } catch (error) {
-      console.error('Error in AI response:', error)
+      console.error('خطأ في استجابة الذكاء الاصطناعي:', error)
       // Add an error message to the conversation
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant' as const,
-        content: 'Sorry, I encountered an error generating a response. Please set the required API keys in your environment variables.',
+        content: 'عذراً، واجهت خطأ في إنتاج الاستجابة. يرجى تعيين مفاتيح API المطلوبة في متغيرات البيئة الخاصة بك.',
       }
       await addMessage(conversationId, errorMessage)
     }
@@ -154,19 +154,19 @@ function Home() {
       // If no current conversation, create one in Convex first
       if (!conversationId) {
         try {
-          console.log('Creating new Convex conversation with title:', conversationTitle)
+          console.log('إنشاء محادثة Convex جديدة مع العنوان:', conversationTitle)
           // Create a new conversation with our title
           const convexId = await createNewConversation(conversationTitle)
           
           if (convexId) {
-            console.log('Successfully created Convex conversation with ID:', convexId)
+            console.log('تم إنشاء محادثة Convex بنجاح مع المعرف:', convexId)
             conversationId = convexId
             
             // Add user message directly to Convex
-            console.log('Adding user message to Convex conversation:', userMessage.content)
+            console.log('إضافة رسالة المستخدم إلى محادثة Convex:', userMessage.content)
             await addMessage(conversationId, userMessage)
           } else {
-            console.warn('Failed to create Convex conversation, falling back to local')
+            console.warn('فشل في إنشاء محادثة Convex، العودة إلى التخزين المحلي')
             // Fallback to local storage if Convex creation failed
             const tempId = Date.now().toString()
             const tempConversation = {
@@ -182,12 +182,12 @@ function Home() {
             actions.addMessage(conversationId, userMessage)
           }
         } catch (error) {
-          console.error('Error creating conversation:', error)
-          throw new Error('Failed to create conversation')
+          console.error('خطأ في إنشاء المحادثة:', error)
+          throw new Error('فشل في إنشاء المحادثة')
         }
       } else {
         // We already have a conversation ID, add message directly to Convex
-        console.log('Adding user message to existing conversation:', conversationId)
+        console.log('إضافة رسالة المستخدم إلى المحادثة الموجودة:', conversationId)
         await addMessage(conversationId, userMessage)
       }
       
@@ -195,11 +195,11 @@ function Home() {
       await processAIResponse(conversationId, userMessage)
       
     } catch (error) {
-      console.error('Error:', error)
+      console.error('خطأ:', error)
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant' as const,
-        content: 'Sorry, I encountered an error processing your request.',
+        content: 'عذراً، واجهت خطأ في معالجة طلبك.',
       }
       if (currentConversationId) {
         await addMessage(currentConversationId, errorMessage)
@@ -208,7 +208,7 @@ function Home() {
         if (error instanceof Error) {
           setError(error.message)
         } else {
-          setError('An unknown error occurred.')
+          setError('حدث خطأ غير معروف.')
         }
       }
     } finally {
@@ -231,9 +231,9 @@ function Home() {
   }, [updateConversationTitle]);
 
   return (
-    <div className="relative flex h-screen bg-gray-900">
+    <div className="relative flex h-screen bg-gray-900" dir="rtl">
       {/* Settings Button */}
-      <div className="absolute z-50 top-5 right-5">
+      <div className="absolute z-50 top-5 left-5">
         <button
           onClick={() => setIsSettingsOpen(true)}
           className="flex items-center justify-center w-10 h-10 text-white transition-opacity rounded-full bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -260,8 +260,8 @@ function Home() {
       <div className="flex flex-col flex-1">
         {!isAnthropicKeyDefined && (
           <div className="w-full max-w-3xl px-2 py-2 mx-auto mt-4 mb-2 font-medium text-center text-white bg-orange-500 rounded-md">
-            <p>This app requires an Anthropic API key to work properly.</p> 
-            <p>Update your <code>.env</code> file or get a <a href='https://console.anthropic.com/settings/keys' className='underline'>new Anthropic key</a>.</p>
+            <p>يتطلب هذا التطبيق مفتاح Anthropic API للعمل بشكل صحيح.</p> 
+            <p>قم بتحديث ملف <code>.env</code> الخاص بك أو احصل على <a href='https://console.anthropic.com/settings/keys' className='underline'>مفتاح Anthropic جديد</a>.</p>
           </div>
         )}
         {error && (
